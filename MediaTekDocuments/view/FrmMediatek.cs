@@ -65,7 +65,12 @@ namespace MediaTekDocuments.view
             RemplirComboCategorie(controller.GetAllRayons(), bdgRayons, cbxLivresRayons);
             RemplirLivresListeComplete();
         }
-
+        
+        private void btnCommandeLivre_Click_1(object sender, EventArgs e)
+        {
+            FrmCommandeLivre frmCommandeLivre = new FrmCommandeLivre();
+            frmCommandeLivre.Show();
+        }
         /// <summary>
         /// Remplit le dategrid avec la liste reçue en paramètre
         /// </summary>
@@ -430,7 +435,7 @@ namespace MediaTekDocuments.view
                 RemplirDvdListeComplete();
             }
         }
-
+        
         /// <summary>
         /// Recherche et affichage des Dvd dont le titre matche acec la saisie.
         /// Cette procédure est exécutée à chaque ajout ou suppression de caractère
@@ -1177,7 +1182,7 @@ namespace MediaTekDocuments.view
                     }
                 }
                 catch
-                {
+                { 
                     MessageBox.Show("le numéro de parution doit être numérique", "Information");
                     txbReceptionExemplaireNumero.Text = "";
                     txbReceptionExemplaireNumero.Focus();
@@ -1238,6 +1243,20 @@ namespace MediaTekDocuments.view
                 pcbReceptionExemplaireRevueImage.Image = null;
             }
         }
+
+
         #endregion
+
+        private void btnCommandeDvd_Click(object sender, EventArgs e)
+        {
+            FrmCommandeDvd frmCommandeDvd = new FrmCommandeDvd();
+            frmCommandeDvd.Show();
+        }
+
+        private void btnCommandeRevue_Click(object sender, EventArgs e)
+        {
+            FrmCommandeRevue frmCommandeRevue = new FrmCommandeRevue();
+            frmCommandeRevue.Show();
+        }
     }
 }
