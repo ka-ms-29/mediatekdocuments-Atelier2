@@ -20,16 +20,49 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgGenres = new BindingSource();
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
+        private readonly Utilisateurs utilisateur;
+        string service = "";
 
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
         /// </summary>
-        internal FrmMediatek()
+        internal FrmMediatek(Utilisateurs utilisateur)
         {
             InitializeComponent();
-            this.controller = new FrmMediatekController();
-        }
+            this.controller = new FrmMediatekController();            
+            this.utilisateur = utilisateur;
+            service = utilisateur.idservice;
+            verifieServiceUser(service);
 
+        }
+        /// <summary>
+        /// rendre visible ou non les boutons de commande en fonction du service de l'utilisateur connecté.
+        /// </summary>
+        /// <param name="service"></param>
+        private void verifieServiceUser(string service)
+        {
+            List<Abonnement> listeAbonnementFin = RapprocheFinAbonnement();
+            switch (service)
+            {
+                case "1":
+                    btnCommandeLivre.Visible = true;
+                    btnCommandeDvd.Visible = true;
+                    btnCommandeRevue.Visible = true;
+                    break;
+                case "2":
+                    btnCommandeLivre.Visible = true;
+                    btnCommandeDvd.Visible = true;
+                    btnCommandeRevue.Visible = true;
+                    AfficheAbonnementFin(listeAbonnementFin);
+                    break;
+                case "3":
+                    btnCommandeLivre.Visible = false;
+                    btnCommandeDvd.Visible = false;
+                    btnCommandeRevue.Visible = false;
+                    break;
+
+            }
+        }
         /// <summary>
         /// Rempli un des 3 combo (genre, public, rayon)
         /// </summary>
@@ -65,7 +98,11 @@ namespace MediaTekDocuments.view
             RemplirComboCategorie(controller.GetAllRayons(), bdgRayons, cbxLivresRayons);
             RemplirLivresListeComplete();
         }
-        
+        /// <summary>
+        /// bouton de Commande livre : ouverture du form de commande de livre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCommandeLivre_Click_1(object sender, EventArgs e)
         {
             FrmCommandeLivre frmCommandeLivre = new FrmCommandeLivre();
@@ -435,7 +472,7 @@ namespace MediaTekDocuments.view
                 RemplirDvdListeComplete();
             }
         }
-        
+
         /// <summary>
         /// Recherche et affichage des Dvd dont le titre matche acec la saisie.
         /// Cette procédure est exécutée à chaque ajout ou suppression de caractère
@@ -1182,7 +1219,7 @@ namespace MediaTekDocuments.view
                     }
                 }
                 catch
-                { 
+                {
                     MessageBox.Show("le numéro de parution doit être numérique", "Information");
                     txbReceptionExemplaireNumero.Text = "";
                     txbReceptionExemplaireNumero.Focus();
@@ -1246,17 +1283,70 @@ namespace MediaTekDocuments.view
 
 
         #endregion
+        /// <summary>
+        /// bouton Commande DVD : pour acceder à la form gestion des commande de dvd.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void btnCommandeDvd_Click(object sender, EventArgs e)
         {
             FrmCommandeDvd frmCommandeDvd = new FrmCommandeDvd();
             frmCommandeDvd.Show();
         }
-
+        /// <summary>
+        /// bouton Commande Revue : pour acceder à la form gestion des abonnement(revues).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCommandeRevue_Click(object sender, EventArgs e)
         {
             FrmCommandeRevue frmCommandeRevue = new FrmCommandeRevue();
             frmCommandeRevue.Show();
         }
+        /// <summary>
+        /// ontenir la liste des abonnement qui arrivent à expiration dans les 30 prochains jours.
+        /// </summary>
+        /// <returns></returns>
+        private List<Abonnement> RapprocheFinAbonnement()
+        {
+            List<Abonnement> lesAbonnements = controller.GetAllAbonnement();
+            List<Abonnement> lesAbonnementFin = new List<Abonnement>();
+
+            foreach (Abonnement abonnement in lesAbonnements)
+            {
+                if (abonnement.dateFinAbonnement <= DateTime.Today.AddDays(30) && abonnement.dateFinAbonnement > DateTime.Today)
+                {
+                    lesAbonnementFin.Add(abonnement);
+                }
+            }
+
+            return lesAbonnementFin;
+        }
+        /// <summary>
+        /// Affichage la liste des abonnement qui arrivent à expiration dans les 30 prochains jours dans un MessageBox.
+        /// </summary>
+        /// <param name="lesAbonnementFin"></param>
+        private void AfficheAbonnementFin(List<Abonnement> lesAbonnementFin)
+        {
+            string message = "Les abonnements suivants arrivent à expiration dans les 30 prochains jours :\n\n";
+
+            foreach (Abonnement abonnement in lesAbonnementFin)
+            {
+                string id = abonnement.idRevue;
+                DateTime dateFin = abonnement.dateFinAbonnement;
+
+                message += "Revue : " + id + 
+                           " _ Date fin abonnement: " +
+                           dateFin.ToShortDateString() + "\n";
+            }
+            MessageBox.Show(message);
+        }
+
+        private void FrmMediatek_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
+

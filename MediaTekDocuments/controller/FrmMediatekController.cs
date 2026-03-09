@@ -96,8 +96,15 @@ namespace MediaTekDocuments.controller
         {
             return access.CreerExemplaire(exemplaire);
         }
+        /// <summary>
+        /// récupère tous les abonnements (commandes de revue) d'une revue à partir Access.
+        /// </summary>
+        /// <returns></returns>
+        public List<Abonnement> GetAllAbonnement()
+        {
+            return access.GetAllAbonnements();
+        }
 
-        
 
     }
 }
