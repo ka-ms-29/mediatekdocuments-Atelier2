@@ -13,6 +13,9 @@ using System.Windows.Input;
 
 namespace MediaTekDocuments.view
 {
+    /// <summary>
+    /// classe d'affichage la form la gestion des abonnement
+    /// </summary>
     public partial class FrmCommandeRevue : Form
     {
         private readonly FrmCommandeRevueController controller;
@@ -20,17 +23,29 @@ namespace MediaTekDocuments.view
         private List<Abonnement> lesCommandesRevue = new List<Abonnement>();
         private List<Exemplaire> lesExemplaireRevue = new List<Exemplaire>();
         private readonly BindingSource bdgCommandes = new BindingSource();
+
+        /// <summary>
+        /// 
+        /// </summary>
         public FrmCommandeRevue()
         {
             InitializeComponent();
             this.controller = new FrmCommandeRevueController();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmCommandeRevue_Load(object sender, EventArgs e)
         {
             lesRevue = controller.GetAllRevues();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRecherche_Click(object sender, EventArgs e)
         {
             if (!txtNumRevueRecherche.Text.Equals(""))
@@ -52,7 +67,11 @@ namespace MediaTekDocuments.view
                 VideRevuesInfos();
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSupprCommandeDvd_Click(object sender, EventArgs e)
         {
             if (dgvListeCommande.SelectedRows.Count > 0)
@@ -100,7 +119,11 @@ namespace MediaTekDocuments.view
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEnregistrCommandeDvd_Click(object sender, EventArgs e)
         {
 
@@ -111,7 +134,7 @@ namespace MediaTekDocuments.view
                     string idCommande = Guid.NewGuid().ToString().Substring(0, 5);
                     DateTime dateCommande = dtpDateCommande.Value;
                     double montant = double.Parse(txtMontant.Text);
-                    DateTime dateFinAbonnement = dtpDateCommande.Value;
+                    DateTime dateFinAbonnement = dtpFinAbonnement.Value;
                     string idRevue = txtNumRevueRecherche.Text;
                     Abonnement abonnementR = new Abonnement(dateFinAbonnement, idRevue, idCommande, dateCommande, montant );
                     if (controller.AjouteAbonnementRevue(abonnementR))
@@ -138,7 +161,11 @@ namespace MediaTekDocuments.view
                 MessageBox.Show("montant est obligatoire", "Information");
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAnnulCommandeDvd_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Voulez-vous vraiment annuler ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -146,7 +173,10 @@ namespace MediaTekDocuments.view
                 VidegrbAjoutAbonnement();             
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="revue"></param>
         private void AfficheRevuesInfos(Revue revue)
         {
             txbRevuesPeriodiciteCom.Text = revue.Periodicite;
@@ -168,6 +198,9 @@ namespace MediaTekDocuments.view
             }
             AfficheAbonnementRevue();
         }
+        /// <summary>
+        /// 
+        /// </summary>
         private void VideRevuesInfos()
         {
             txbRevuesPeriodiciteCom.Text = "";
@@ -183,6 +216,10 @@ namespace MediaTekDocuments.view
             dgvListeCommande.DataSource = null;
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandes"></param>
         private void RemplirCommandesListe(List<Abonnement> commandes)
         {
             if (commandes != null)
@@ -203,18 +240,29 @@ namespace MediaTekDocuments.view
             }
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
         private void AfficheAbonnementRevue()
         {
             string idDocuement = txtNumRevueRecherche.Text;
             lesCommandesRevue = controller.GetAbonnementRevue(idDocuement);
             RemplirCommandesListe(lesCommandesRevue);
-        }    
+        } 
+        /// <summary>
+        /// 
+        /// </summary>
         private void VidegrbAjoutAbonnement()
         {
             dtpFinAbonnement.Value = DateTime.Now;
             dtpDateCommande.Value = DateTime.Now;
             txtMontant.Text = null;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvListeCommande_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             string titreColonne = dgvListeCommande.Columns[e.ColumnIndex].HeaderText;
@@ -233,19 +281,20 @@ namespace MediaTekDocuments.view
             }
             RemplirCommandesListe(sortedList);
         }
-       
-        private bool parutionDansAbonnement(DateTime dateAchat,  DateTime dateCommande, DateTime dateFinAbonnement)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dateAchat"></param>
+        /// <param name="dateCommande"></param>
+        /// <param name="dateFinAbonnement"></param>
+        /// <returns></returns>
+        public bool parutionDansAbonnement(DateTime dateAchat,  DateTime dateCommande, DateTime dateFinAbonnement)
         {
             if (dateAchat >= dateCommande && dateAchat <= dateFinAbonnement)
             {
                 return true;
             }
             return false;
-        }
-
-        private void VideGrpListeAbonnement()
-        {
-           
         }
     }
 }

@@ -1985,6 +1985,7 @@ namespace MediaTekDocuments.view
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmMediatek";
             this.Text = "Gestion des documents de la médiathèque";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMediatek_FormClosed);
             this.tabOngletsApplication.ResumeLayout(false);
             this.tabLivres.ResumeLayout(false);
             this.grpLivresInfos.ResumeLayout(false);

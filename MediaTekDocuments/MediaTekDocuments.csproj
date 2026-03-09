@@ -83,8 +83,8 @@
     <Reference Include="ZstdNet, Version=1.4.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="controller\FrmCommandeDvdController.cs" />
-    <Compile Include="controller\FrmCommandeLivreController.cs" />
+    <Compile Include="controller\FrmAuthentificationController.cs" />
+    <Compile Include="controller\FrmCommandeDocumentController.cs" />
     <Compile Include="controller\FrmCommandeRevueController.cs" />
     <Compile Include="manager\ApiRest.cs" />
     <Compile Include="controller\FrmMediatekController.cs" />
@@ -92,7 +92,9 @@
     <Compile Include="model\Abonnement.cs" />
     <Compile Include="model\Commande.cs" />
     <Compile Include="model\CommandeDocument.cs" />
+    <Compile Include="model\Service.cs" />
     <Compile Include="model\Suivi.cs" />
+    <Compile Include="model\Utilisateurs.cs" />
     <Compile Include="view\FrmAuthentification.cs">
       <SubType>Form</SubType>
     </Compile>

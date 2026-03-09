@@ -44,6 +44,7 @@
             this.btnModifiCommandeDvd = new System.Windows.Forms.Button();
             this.dgvListeCommande = new System.Windows.Forms.DataGridView();
             this.grbInfoDvdCom = new System.Windows.Forms.GroupBox();
+            this.txbDvdSynopsisCom = new System.Windows.Forms.TextBox();
             this.lblImage = new System.Windows.Forms.Label();
             this.txbDureeDvd = new System.Windows.Forms.TextBox();
             this.txbDvdImageCom = new System.Windows.Forms.TextBox();
@@ -66,7 +67,6 @@
             this.lblNumSaisir = new System.Windows.Forms.Label();
             this.btnRecherche = new System.Windows.Forms.Button();
             this.txtNumDvd = new System.Windows.Forms.TextBox();
-            this.txbDvdSynopsisCom = new System.Windows.Forms.TextBox();
             this.grbAjoutCommande.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudExemplaire)).BeginInit();
             this.grbCommandesDvd.SuspendLayout();
@@ -277,6 +277,18 @@
             this.grbInfoDvdCom.TabIndex = 57;
             this.grbInfoDvdCom.TabStop = false;
             this.grbInfoDvdCom.Text = "Information DVD";
+            // 
+            // txbDvdSynopsisCom
+            // 
+            this.txbDvdSynopsisCom.AcceptsReturn = true;
+            this.txbDvdSynopsisCom.Location = new System.Drawing.Point(202, 125);
+            this.txbDvdSynopsisCom.Margin = new System.Windows.Forms.Padding(4);
+            this.txbDvdSynopsisCom.Multiline = true;
+            this.txbDvdSynopsisCom.Name = "txbDvdSynopsisCom";
+            this.txbDvdSynopsisCom.ReadOnly = true;
+            this.txbDvdSynopsisCom.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txbDvdSynopsisCom.Size = new System.Drawing.Size(520, 47);
+            this.txbDvdSynopsisCom.TabIndex = 54;
             // 
             // lblImage
             // 
@@ -494,22 +506,10 @@
             // 
             // txtNumDvd
             // 
-            this.txtNumDvd.Location = new System.Drawing.Point(275, 20);
+            this.txtNumDvd.Location = new System.Drawing.Point(280, 18);
             this.txtNumDvd.Name = "txtNumDvd";
             this.txtNumDvd.Size = new System.Drawing.Size(203, 22);
             this.txtNumDvd.TabIndex = 60;
-            // 
-            // txbDvdSynopsisCom
-            // 
-            this.txbDvdSynopsisCom.AcceptsReturn = true;
-            this.txbDvdSynopsisCom.Location = new System.Drawing.Point(202, 125);
-            this.txbDvdSynopsisCom.Margin = new System.Windows.Forms.Padding(4);
-            this.txbDvdSynopsisCom.Multiline = true;
-            this.txbDvdSynopsisCom.Name = "txbDvdSynopsisCom";
-            this.txbDvdSynopsisCom.ReadOnly = true;
-            this.txbDvdSynopsisCom.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txbDvdSynopsisCom.Size = new System.Drawing.Size(520, 47);
-            this.txbDvdSynopsisCom.TabIndex = 54;
             // 
             // FrmCommandeDvd
             // 

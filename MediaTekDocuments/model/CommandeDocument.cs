@@ -7,6 +7,10 @@ using System.Transactions;
 
 namespace MediaTekDocuments.model
 {
+    /// <summary>
+    /// 
+    /// Classe métier représentant une commande de document (livre ou dvd), héritant de la classe Commande.
+    /// </summary>
     public class CommandeDocument : Commande
     {
         public int nbExemplaire { get; set; }          

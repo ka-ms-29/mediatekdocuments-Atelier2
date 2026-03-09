@@ -56,6 +56,7 @@ namespace MediaTekDocuments.dal
             String authenticationString;
             try
             {
+                
                 authenticationString = "admin:adminpwd";
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
@@ -78,6 +79,7 @@ namespace MediaTekDocuments.dal
             }
             return instance;
         }
+        
 
         /// <summary>
         /// Retourne tous les genres à partir de la BDD
@@ -138,8 +140,8 @@ namespace MediaTekDocuments.dal
             List<Revue> lesRevues = TraitementRecup<Revue>(GET, "revue", null);
             return lesRevues;
         }
-
        
+
 
 
         /// <summary>
@@ -175,7 +177,6 @@ namespace MediaTekDocuments.dal
         }
         /// <summary>
         /// Retourne toute les donné de la table suivi de BDD 
-        /// mission 2
         /// </summary>
         /// <returns></returns>
         public List<Suivi> GetAllSuivi()
@@ -185,16 +186,20 @@ namespace MediaTekDocuments.dal
         }
         /// <summary>
         /// Retourne les commandes d'un livre 
-        /// mission2
         /// </summary>
         /// <param name="idLivre"></param>
         /// <returns></returns>
-        public List<CommandeDocument> GetCommandesLivre(string idLivre)
+        public List<CommandeDocument> GetCommandesDocument(string idDocument)
         {
-            String jsonIdDocument = convertToJson("id", idLivre);
+            String jsonIdDocument = convertToJson("id", idDocument);
             List<CommandeDocument> lesCommandes = TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonIdDocument, null);
             return lesCommandes;
         }
+        /// <summary>
+        /// Récupere toutes les commandes d'une revue
+        /// </summary>
+        /// <param name="idDocument"></param>
+        /// <returns></returns>
         public List<Abonnement> GetAbonnementRevue(string idDocument)
         {
             String jsonIdDocument = convertToJson("idRevue", idDocument);
@@ -203,7 +208,6 @@ namespace MediaTekDocuments.dal
         }
         /// <summary>
         /// Ajout d'une commande livre dans la BDD
-        /// mission 2
         /// </summary>
         /// <param name="commandeDocument"></param>
         /// <returns></returns>
@@ -221,6 +225,11 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="abonnement"></param>
+        /// <returns></returns>
         public bool AjoutAbonnementRevue(Abonnement abonnement)
         {
             String jsonCommandeDocument = JsonConvert.SerializeObject(abonnement, new CustomDateTimeConverter());
@@ -237,7 +246,6 @@ namespace MediaTekDocuments.dal
         }
         /// <summary>
         /// Modifier le etape de suivi d'une commande document dans la BDD
-        /// 
         /// </summary>
         /// <param name="commandeDocument"></param>
         /// <returns></returns>
@@ -258,7 +266,6 @@ namespace MediaTekDocuments.dal
         }
         /// <summary>
         /// Suprression d'une commande document dans la BDD
-        /// misson 2
         /// </summary>
         /// <param name="idDocument"></param>
         /// <returns></returns>
@@ -267,7 +274,7 @@ namespace MediaTekDocuments.dal
             String jsonIdDocument = convertToJson("id", id);
             try
             {
-                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "commande", "champs=" + jsonIdDocument);
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "commande/" + jsonIdDocument, null );
                 return (liste != null);
             }
             catch (Exception ex)
@@ -276,12 +283,17 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+        /// <summary>
+        /// Supprime un abonnement qui correspond à id recue dans parametre.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool SupprimerAbonnementRevue(string id)
         {
             String jsonIdDocument = convertToJson("id", id);
             try
             {
-                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "abonnement", "champs=" + jsonIdDocument);
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "abonnement/" + jsonIdDocument, null);
                 return (liste != null);
             }
             catch (Exception ex)
@@ -289,6 +301,31 @@ namespace MediaTekDocuments.dal
                 Console.WriteLine(ex.Message);
             }
             return false;
+        }
+        /// <summary>
+        /// Récuper toute les abonnements de la BDD.
+        /// </summary>
+        /// <returns></returns>
+        public List<Abonnement> GetAllAbonnements()
+        {
+            List<Abonnement> lesAbonnement = TraitementRecup<Abonnement>(GET, "abonnementFin", null);
+            return lesAbonnement;
+        }
+        /// <summary>
+        /// Récupere les utilisateurs correspondant au nom et mot de passe saisis.
+        /// </summary>
+        /// <param name="nom"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public List<Utilisateurs> GetUtilisateur(string nom, string pwd)
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("nom", nom);
+            data.Add("pwd", pwd);
+            string json = JsonConvert.SerializeObject(data);
+            
+            List<Utilisateurs> lesutilisateurs = TraitementRecup<Utilisateurs>(GET, "utilisateurs/" + json, null);
+            return lesutilisateurs;
         }
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)

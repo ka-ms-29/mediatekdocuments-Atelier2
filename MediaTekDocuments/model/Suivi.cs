@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MediaTekDocuments.model
 {
+    /// <summary>
+    /// Classe métier représentant une étape de suivi d'une commande de document (livre ou dvd).
+    /// </summary>
     public class Suivi
     {
         public string idsuivi { get; set; }
@@ -18,7 +21,10 @@ namespace MediaTekDocuments.model
             this.idsuivi = idsuivi;
             this.libelle = libelle;
         }
-
+        /// <summary>
+        /// Récupération du libellé pour l'affichage dans les comboss
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return libelle;
