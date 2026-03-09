@@ -56,8 +56,9 @@ namespace MediaTekDocuments.dal
             String authenticationString;
             try
             {
-                
-                authenticationString = "admin:adminpwd";
+                string login = GetAppSettingByKey("apiLogin");
+                string pwd = GetAppSettingByKey("apiPwd");
+                authenticationString = login + ":" + pwd;
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
@@ -79,7 +80,20 @@ namespace MediaTekDocuments.dal
             }
             return instance;
         }
-        
+        /// <summary>
+        /// Récupération de les valeurs de connexion à l'api.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        static string GetAppSettingByKey(string key)
+        {
+            string returnValue = null;
+            string value = ConfigurationManager.AppSettings[key];
+            if (value != null)
+                returnValue = value;
+            return returnValue;
+        }
 
         /// <summary>
         /// Retourne tous les genres à partir de la BDD
