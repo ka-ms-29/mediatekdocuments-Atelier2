@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Windows.Forms;
+using Serilog;
+
 
 namespace MediaTekDocuments.dal
 {
@@ -51,6 +53,11 @@ namespace MediaTekDocuments.dal
         /// </summary>
         private Access()
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Console()
+                .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
             String authenticationString;
             try
             {
@@ -61,6 +68,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception e)
             {
+                Log.Fatal("Authentification incorrecte pour l'accès à l'api", e);
                 Console.WriteLine(e.Message);
                 Environment.Exit(0);
             }
@@ -183,6 +191,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Erreur lors de la création d'un exemplaire pour la revue avec ID={ExemplaireId} ", exemplaire.Id);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -225,6 +234,7 @@ namespace MediaTekDocuments.dal
         /// <returns></returns>
         public bool AjoutCommandeDocument(CommandeDocument commandeDocument)
         {
+            string idDocument = commandeDocument.idLivreDvd;
             String jsonCommandeDocument = JsonConvert.SerializeObject(commandeDocument, new CustomDateTimeConverter());
             try
             {
@@ -233,6 +243,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "erreur l'ajout commande pour le documant(livre/dvd) avec ID={idDocument} ", idDocument);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -244,6 +255,7 @@ namespace MediaTekDocuments.dal
         /// <returns></returns>
         public bool AjoutAbonnementRevue(Abonnement abonnement)
         {
+            string idRevue = abonnement.idRevue;
             String jsonCommandeDocument = JsonConvert.SerializeObject(abonnement, new CustomDateTimeConverter());
             try
             {
@@ -252,6 +264,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Erreur lors d'ajout d'un abonnement pour la revue avec ID={RevueId} ", idRevue);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -272,6 +285,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error("erreur de lors de modification l'étape suivi d'un commande", ex);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -291,6 +305,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Debug("erreur de suppression d'un commande pour un document", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -310,6 +325,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Debug("erreur de suppression d'un abonnement pour une revue", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -374,13 +390,14 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception e)
             {
-                //Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
-                //Environment.Exit(0);
-                MessageBox.Show(e.ToString());
+                Log.Fatal("Impossible d'accéder à la base de données via l'API. (problème d'accès à l'api)", e);
+                Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
+                Environment.Exit(0);
+                //MessageBox.Show(e.ToString());
 
             }
             return liste;
-        }
+        } 
 
         /// <summary>
         /// Convertit en json un couple nom/valeur
