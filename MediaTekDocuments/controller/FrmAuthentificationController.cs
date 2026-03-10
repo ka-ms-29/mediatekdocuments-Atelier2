@@ -1,10 +1,6 @@
 ﻿using MediaTekDocuments.dal;
 using MediaTekDocuments.model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MediaTekDocuments.controller
 {
@@ -33,6 +29,6 @@ namespace MediaTekDocuments.controller
             return access.GetUtilisateur(nom, pwd);
         }
 
-       
+
     }
 }

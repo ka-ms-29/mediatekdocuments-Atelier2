@@ -6,9 +6,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace MediaTekDocuments.dal
 {
@@ -74,7 +72,7 @@ namespace MediaTekDocuments.dal
         /// <returns>instance unique de la classe</returns>
         public static Access GetInstance()
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new Access();
             }
@@ -154,7 +152,7 @@ namespace MediaTekDocuments.dal
             List<Revue> lesRevues = TraitementRecup<Revue>(GET, "revue", null);
             return lesRevues;
         }
-       
+
 
 
 
@@ -269,7 +267,7 @@ namespace MediaTekDocuments.dal
             String jsonIdsuivi = convertToJson("idsuivi", idsuivi);
             try
             {
-                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(PUT, "commandedocument/" +id , "champs=" + jsonIdsuivi);
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(PUT, "commandedocument/" + id, "champs=" + jsonIdsuivi);
                 return (liste != null);
             }
             catch (Exception ex)
@@ -288,7 +286,7 @@ namespace MediaTekDocuments.dal
             String jsonIdDocument = convertToJson("id", id);
             try
             {
-                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "commande/" + jsonIdDocument, null );
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "commande/" + jsonIdDocument, null);
                 return (liste != null);
             }
             catch (Exception ex)
@@ -337,7 +335,7 @@ namespace MediaTekDocuments.dal
             data.Add("nom", nom);
             data.Add("pwd", pwd);
             string json = JsonConvert.SerializeObject(data);
-            
+
             List<Utilisateurs> lesutilisateurs = TraitementRecup<Utilisateurs>(GET, "utilisateurs/" + json, null);
             return lesutilisateurs;
         }
@@ -349,7 +347,7 @@ namespace MediaTekDocuments.dal
         /// <param name="message">information envoyée dans l'url</param>
         /// <param name="parametres">paramètres à envoyer dans le body, au format "chp1=val1&chp2=val2&..."</param>
         /// <returns>liste d'objets récupérés (ou liste vide)</returns>
-        private List<T> TraitementRecup<T> (String methode, String message, String parametres)
+        private List<T> TraitementRecup<T>(String methode, String message, String parametres)
         {
             // trans
             List<T> liste = new List<T>();
@@ -367,13 +365,14 @@ namespace MediaTekDocuments.dal
                         String resultString = JsonConvert.SerializeObject(retour["result"]);
                         // construction de la liste d'objets à partir du retour de l'api
                         liste = JsonConvert.DeserializeObject<List<T>>(resultString, new CustomBooleanJsonConverter());
-                    }                   
+                    }
                 }
                 else
                 {
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 //Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
                 //Environment.Exit(0);

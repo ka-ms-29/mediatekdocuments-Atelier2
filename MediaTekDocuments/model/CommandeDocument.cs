@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace MediaTekDocuments.model
 {
@@ -13,13 +8,13 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class CommandeDocument : Commande
     {
-        public int nbExemplaire { get; set; }          
+        public int nbExemplaire { get; set; }
         public string idLivreDvd { get; set; }
         public string idsuivi { get; set; }
         public string EtapeSuivi { get; set; }
 
 
-        public CommandeDocument(  int nbExemplaire, string idLivreDvd, string IdSuivi, string EtapeSuivi,
+        public CommandeDocument(int nbExemplaire, string idLivreDvd, string IdSuivi, string EtapeSuivi,
                             string id, DateTime dateCommande, double montant)
         : base(id, dateCommande, montant) // constructeur de la classe parent
         {

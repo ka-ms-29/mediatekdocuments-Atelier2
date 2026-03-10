@@ -2,13 +2,6 @@
 using MediaTekDocuments.model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 
 namespace MediaTekDocuments.view
@@ -39,12 +32,12 @@ namespace MediaTekDocuments.view
             if (String.IsNullOrEmpty(pwd) || String.IsNullOrEmpty(nom))
             {
                 MessageBox.Show("Tous les champs doivent etre remplis", "Information");
-                
+
             }
             else
             {
                 List<Utilisateurs> lesUtilisateurs = controller.GetUtilisateurs(nom, pwd);
-                
+
                 if (lesUtilisateurs.Count == 0)
                 {
                     MessageBox.Show("Nom ou mot de passe incorrect");
@@ -79,8 +72,8 @@ namespace MediaTekDocuments.view
                             videLesChmpsSaisie();
                             break;
                     }
-                }              
-            }                            
+                }
+            }
         }
         /// <summary>
         /// Vide les champs de saisie : Login et Password.
@@ -92,6 +85,6 @@ namespace MediaTekDocuments.view
 
         }
 
-         
+
     }
 }

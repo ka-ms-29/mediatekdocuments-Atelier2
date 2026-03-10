@@ -1,11 +1,13 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using MediaTekDocuments.controller;
 using MediaTekDocuments.model;
-using MediaTekDocuments.controller;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
 
 namespace MediaTekDocuments.view
 
@@ -20,8 +22,7 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgGenres = new BindingSource();
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
-        private readonly Utilisateurs utilisateur;
-        string service = "";
+        private const string NUMERO_INTROUVABLE = "numéro introuvable";
 
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
@@ -29,9 +30,8 @@ namespace MediaTekDocuments.view
         internal FrmMediatek(Utilisateurs utilisateur)
         {
             InitializeComponent();
-            this.controller = new FrmMediatekController();            
-            this.utilisateur = utilisateur;
-            service = utilisateur.idservice;
+            this.controller = new FrmMediatekController();
+            string service = utilisateur.idservice;
             verifieServiceUser(service);
 
         }
@@ -69,7 +69,7 @@ namespace MediaTekDocuments.view
         /// <param name="lesCategories">liste des objets de type Genre ou Public ou Rayon</param>
         /// <param name="bdg">bindingsource contenant les informations</param>
         /// <param name="cbx">combobox à remplir</param>
-        public void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
+        public static void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
         {
             bdg.DataSource = lesCategories;
             cbx.DataSource = bdg;
@@ -148,7 +148,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(NUMERO_INTROUVABLE);
                     RemplirLivresListeComplete();
                 }
             }
@@ -463,7 +463,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(NUMERO_INTROUVABLE);
                     RemplirDvdListeComplete();
                 }
             }
@@ -777,7 +777,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(NUMERO_INTROUVABLE);
                     RemplirRevuesListeComplete();
                 }
             }
@@ -1085,7 +1085,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(NUMERO_INTROUVABLE);
                 }
             }
         }
@@ -1327,22 +1327,27 @@ namespace MediaTekDocuments.view
         /// Affichage la liste des abonnement qui arrivent à expiration dans les 30 prochains jours dans un MessageBox.
         /// </summary>
         /// <param name="lesAbonnementFin"></param>
-        private void AfficheAbonnementFin(List<Abonnement> lesAbonnementFin)
+        private static void AfficheAbonnementFin(List<Abonnement> lesAbonnementFin)
         {
-            string message = "Les abonnements suivants arrivent à expiration dans les 30 prochains jours :\n\n";
-
+            string message = "Les abonnements suivants arrivent à expiration dans les 30 prochains jours :";
+            StringBuilder builder = new StringBuilder();
             foreach (Abonnement abonnement in lesAbonnementFin)
             {
                 string id = abonnement.idRevue;
                 DateTime dateFin = abonnement.dateFinAbonnement;
-
-                message += "Revue : " + id + 
-                           " _ Date fin abonnement: " +
-                           dateFin.ToShortDateString() + "\n";
+                builder.Append("Revue : ");
+                builder.Append(id);
+                builder.Append(" _ Date fin abonnement: ");
+                builder.Append(dateFin.ToShortDateString());
             }
+            message += builder.ToString();
             MessageBox.Show(message);
         }
-
+        /// <summary>
+        /// fermeture d l'application en fermant la fenetr principale
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmMediatek_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();

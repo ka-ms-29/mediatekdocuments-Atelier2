@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MediaTekDocuments.model
 {
@@ -11,9 +7,9 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class Abonnement : Commande
     {
-        public DateTime dateFinAbonnement {  get; set; }
+        public DateTime dateFinAbonnement { get; set; }
         public string idRevue { get; set; }
-        
+
         /// <summary>
         /// constructeur de la classe
         /// </summary>
@@ -22,9 +18,9 @@ namespace MediaTekDocuments.model
         /// <param name="id"></param>
         /// <param name="dateCommande"></param>
         /// <param name="montant"></param>
-        public Abonnement( DateTime dateFinAbonnement, string idRevue, string id, DateTime dateCommande, double montant) 
-            : base (id, dateCommande, montant)
-        { 
+        public Abonnement(DateTime dateFinAbonnement, string idRevue, string id, DateTime dateCommande, double montant)
+            : base(id, dateCommande, montant)
+        {
             this.dateFinAbonnement = dateFinAbonnement;
             this.idRevue = idRevue;
         }

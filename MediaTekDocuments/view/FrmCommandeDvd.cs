@@ -2,12 +2,9 @@
 using MediaTekDocuments.model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MediaTekDocuments.view
@@ -23,6 +20,7 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgCommandes = new BindingSource();
         private List<CommandeDocument> lesCommandesDvd = new List<CommandeDocument>();
         private Boolean modifier = false;
+        private const string TITRE_INFORMATION = "Information";
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
         /// </summary>
@@ -188,7 +186,7 @@ namespace MediaTekDocuments.view
         /// <param name="statutActuel"></param>
         /// <param name="nouveauStatut"></param>
         /// <returns></returns>
-        private bool TransitionAutorisee(string statutActuel, string nouveauStatut)
+        private static bool TransitionAutorisee(string statutActuel, string nouveauStatut)
         {
             if (statutActuel == "4")
             {
@@ -240,14 +238,14 @@ namespace MediaTekDocuments.view
         {
             if (dgvListeCommande.SelectedRows.Count > 0)
             {
-                //CommandeDocument commandeselectionne = (CommandeDocument)bdgCommandes.List[bdgCommandes.Position];
+                
                 CommandeDocument commandeselectionne = bdgCommandes.Current as CommandeDocument;
                 string idCommande = commandeselectionne.id;
                 string idSuivi = commandeselectionne.idsuivi;
 
                 if (MessageBox.Show("Voulez-vous vraiment supprimer ce commande ?", "Confirmation de suppression", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if(idSuivi == "3")
+                    if (idSuivi == "3")
                     {
                         MessageBox.Show("Impossible de supprimer une commande déjà livrée !", "Erreur de suppression");
                     }
@@ -261,16 +259,16 @@ namespace MediaTekDocuments.view
                         {
                             MessageBox.Show("Erreur lors de suppression du commande", "Erreur");
                         }
-                    }                  
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Annulation de suppression commande", "information");
+                    MessageBox.Show("Annulation de suppression commande", TITRE_INFORMATION);
                 }
             }
             else
             {
-                MessageBox.Show("veuillez selectionner un commande de la liste pour supprimer ", "Information");
+                MessageBox.Show("veuillez selectionner un commande de la liste pour supprimer ", TITRE_INFORMATION);
 
             }
         }
@@ -285,14 +283,13 @@ namespace MediaTekDocuments.view
             {
                 modifier = true;
                 EnCoursModifCommandeLivre(modifier);
-                //CommandeDocument commandeDocument = (CommandeDocument)dgvListeCommande.CurrentRow.DataBoundItem;
                 CommandeDocument commandeselectionne = (CommandeDocument)bdgCommandes.List[bdgCommandes.Position];
                 cboSuivi.SelectedIndex = cboSuivi.FindStringExact(commandeselectionne.EtapeSuivi);
 
             }
             else
             {
-                MessageBox.Show("veuillez selectionner un commande de la liste pour modifier ", "Information");
+                MessageBox.Show("veuillez selectionner un commande de la liste pour modifier ", TITRE_INFORMATION);
             }
         }
         /// <summary>
@@ -373,7 +370,7 @@ namespace MediaTekDocuments.view
                     CommandeDocument DucumentL = new CommandeDocument(nbExemplaire, idLivreDvd, idsuivi, EtapeSuivi, idCommande, dateCommande, montant);
                     if (controller.AjoutCommandeDocument(DucumentL))
                     {
-                        MessageBox.Show("ajout avec succes", "Information");
+                        MessageBox.Show("ajout avec succes", TITRE_INFORMATION);
                         AfficheLesCommandesDvd();
                         VideGrpCommandeLivre();
 
@@ -385,14 +382,14 @@ namespace MediaTekDocuments.view
                 }
                 catch
                 {
-                    MessageBox.Show("le numéro de montant doit être numérique", "Information");
+                    MessageBox.Show("le numéro de montant doit être numérique", TITRE_INFORMATION);
                     txtMontant.Text = "";
                     txtMontant.Focus();
                 }
             }
             else
             {
-                MessageBox.Show("montant est obligatoire", "Information");
+                MessageBox.Show("montant est obligatoire", TITRE_INFORMATION);
             }
         }
         /// <summary>
@@ -401,8 +398,7 @@ namespace MediaTekDocuments.view
         private void EnregistreModifierCommande()
         {
             EnCoursModifCommandeLivre(true);
-            //DataGridViewRow row = dgvListeCommande.SelectedRows[0];
-            //CommandeDocument commandeselectionne = row.DataBoundItem as CommandeDocument;
+            
             CommandeDocument commandeselectionne = (CommandeDocument)bdgCommandes.List[bdgCommandes.Position];
 
             string idCommande = commandeselectionne.id;
@@ -427,6 +423,6 @@ namespace MediaTekDocuments.view
                 modifier = false;
                 EnCoursModifCommandeLivre(false);
             }
-        }        
+        }
     }
 }

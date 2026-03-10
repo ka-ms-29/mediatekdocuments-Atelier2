@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MediaTekDocuments.model
+﻿namespace MediaTekDocuments.model
 {
     public class Utilisateurs
     {
         public string iduser { get; set; }
-        public string nom {  get; set; }
+        public string nom { get; set; }
         public string prenom { get; set; }
         public string mail { get; set; }
         public string pwd { get; set; }

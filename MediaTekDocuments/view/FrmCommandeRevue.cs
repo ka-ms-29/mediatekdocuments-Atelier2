@@ -2,14 +2,10 @@
 using MediaTekDocuments.model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace MediaTekDocuments.view
 {
@@ -23,9 +19,11 @@ namespace MediaTekDocuments.view
         private List<Abonnement> lesCommandesRevue = new List<Abonnement>();
         private List<Exemplaire> lesExemplaireRevue = new List<Exemplaire>();
         private readonly BindingSource bdgCommandes = new BindingSource();
+        private const string TITRE_INFORMATION = "Information";
+
 
         /// <summary>
-        /// 
+        /// Constructeur de la classe
         /// </summary>
         public FrmCommandeRevue()
         {
@@ -33,7 +31,7 @@ namespace MediaTekDocuments.view
             this.controller = new FrmCommandeRevueController();
         }
         /// <summary>
-        /// 
+        /// événement load
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -42,7 +40,8 @@ namespace MediaTekDocuments.view
             lesRevue = controller.GetAllRevues();
         }
         /// <summary>
-        /// 
+        /// Recherche et affichage du livre dont on a saisi le numéro.
+        /// Si non trouvé, affichage d'un MessageBox.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -63,12 +62,12 @@ namespace MediaTekDocuments.view
             }
             else
             {
-                MessageBox.Show("Veuillez entrer un numéro de livre.");
+                MessageBox.Show("Veuillez entrer un numéro de revue.");
                 VideRevuesInfos();
             }
         }
         /// <summary>
-        /// 
+        /// suppression d'un abonnement (commande de revue) si aucun exemplaire n'est rattaché 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -76,51 +75,16 @@ namespace MediaTekDocuments.view
         {
             if (dgvListeCommande.SelectedRows.Count > 0)
             {
-                Abonnement abonnementSelectionne = bdgCommandes.Current as Abonnement;
-                string idAbonnement = abonnementSelectionne.id;
-                DateTime dateCommande = abonnementSelectionne.dateCommande;
-                DateTime dateFinAbonnement = abonnementSelectionne.dateFinAbonnement;
-
-                lesExemplaireRevue = controller.GetExemplairesRevue(idAbonnement);
-                bool suppressionPossible = true;
-                foreach (Exemplaire ex in lesExemplaireRevue)
-                {
-                    if (parutionDansAbonnement(ex.DateAchat, dateCommande, dateFinAbonnement))
-                    {
-                        suppressionPossible = false;
-                        break;
-                    }
-                }
-                if (suppressionPossible)
-                {
-                    if (MessageBox.Show("Voulez-vous vraiment supprimer cet abonnement ?",
-                        "Confirmation",
-                        MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        if (controller.SupprimerAbonnementRevue(idAbonnement))
-                        {
-                            MessageBox.Show("Suppression réussie");
-                            AfficheAbonnementRevue();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Erreur de suppression");
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Impossible de supprimer : des exemplaires existent dans cet abonnement");
-                }
+               operationSupprimAbonnement();
             }
             else
             {
-                MessageBox.Show("veuillez selectionner un commande de la liste pour supprimer ", "Information");
+                MessageBox.Show("veuillez selectionner un commande de la liste pour supprimer ", TITRE_INFORMATION);
             }
 
         }
         /// <summary>
-        /// 
+        /// Enregistre un abonnement pour le revue recherché.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -136,10 +100,10 @@ namespace MediaTekDocuments.view
                     double montant = double.Parse(txtMontant.Text);
                     DateTime dateFinAbonnement = dtpFinAbonnement.Value;
                     string idRevue = txtNumRevueRecherche.Text;
-                    Abonnement abonnementR = new Abonnement(dateFinAbonnement, idRevue, idCommande, dateCommande, montant );
+                    Abonnement abonnementR = new Abonnement(dateFinAbonnement, idRevue, idCommande, dateCommande, montant);
                     if (controller.AjouteAbonnementRevue(abonnementR))
                     {
-                        MessageBox.Show("ajout avec succes", "Information");
+                        MessageBox.Show("ajout avec succes", TITRE_INFORMATION);
                         AfficheAbonnementRevue();
                         VidegrbAjoutAbonnement();
 
@@ -151,18 +115,18 @@ namespace MediaTekDocuments.view
                 }
                 catch
                 {
-                    MessageBox.Show("le numéro de montant doit être numérique", "Information");
+                    MessageBox.Show("le numéro de montant doit être numérique", TITRE_INFORMATION);
                     txtMontant.Text = "";
                     txtMontant.Focus();
                 }
             }
             else
             {
-                MessageBox.Show("montant est obligatoire", "Information");
+                MessageBox.Show("montant est obligatoire", TITRE_INFORMATION);
             }
         }
         /// <summary>
-        /// 
+        /// Annule demande d'ajout abonnement et vide les champs de saisie pour ajouter un abonnement.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -170,11 +134,11 @@ namespace MediaTekDocuments.view
         {
             if (MessageBox.Show("Voulez-vous vraiment annuler ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                VidegrbAjoutAbonnement();             
+                VidegrbAjoutAbonnement();
             }
         }
         /// <summary>
-        /// 
+        /// Affichage des informations de revue recherché et appel à l'affichage des commande de revue recherché.
         /// </summary>
         /// <param name="revue"></param>
         private void AfficheRevuesInfos(Revue revue)
@@ -199,7 +163,7 @@ namespace MediaTekDocuments.view
             AfficheAbonnementRevue();
         }
         /// <summary>
-        /// 
+        /// vide les textBox de groupBox d'Information de revue'.
         /// </summary>
         private void VideRevuesInfos()
         {
@@ -217,7 +181,7 @@ namespace MediaTekDocuments.view
 
         }
         /// <summary>
-        /// 
+        /// Remplit le dategrid avec la liste reçue en paramètre
         /// </summary>
         /// <param name="commandes"></param>
         private void RemplirCommandesListe(List<Abonnement> commandes)
@@ -241,16 +205,17 @@ namespace MediaTekDocuments.view
 
         }
         /// <summary>
-        /// 
+        /// Récupère la liste des abonnements d'un revue,
+        /// envoi la liste pour affichage et remlissage dataGridView
         /// </summary>
         private void AfficheAbonnementRevue()
         {
             string idDocuement = txtNumRevueRecherche.Text;
             lesCommandesRevue = controller.GetAbonnementRevue(idDocuement);
             RemplirCommandesListe(lesCommandesRevue);
-        } 
+        }
         /// <summary>
-        /// 
+        /// vide les champs à saisie d'un nouvelle/renouvellement abonnement
         /// </summary>
         private void VidegrbAjoutAbonnement()
         {
@@ -259,7 +224,7 @@ namespace MediaTekDocuments.view
             txtMontant.Text = null;
         }
         /// <summary>
-        /// 
+        /// Tri sur les colonnes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -282,13 +247,13 @@ namespace MediaTekDocuments.view
             RemplirCommandesListe(sortedList);
         }
         /// <summary>
-        /// 
+        /// vérifiant la date de l'exemplaire, comprise entre la date de la commande et la date de fin d'abonnement
         /// </summary>
         /// <param name="dateAchat"></param>
         /// <param name="dateCommande"></param>
         /// <param name="dateFinAbonnement"></param>
         /// <returns></returns>
-        public bool parutionDansAbonnement(DateTime dateAchat,  DateTime dateCommande, DateTime dateFinAbonnement)
+        public static bool parutionDansAbonnement(DateTime dateAchat, DateTime dateCommande, DateTime dateFinAbonnement)
         {
             if (dateAchat >= dateCommande && dateAchat <= dateFinAbonnement)
             {
@@ -296,5 +261,48 @@ namespace MediaTekDocuments.view
             }
             return false;
         }
+        /// <summary>
+        /// opération sur le bouton supprimer.
+        /// </summary>
+        private void operationSupprimAbonnement()
+        {
+            Abonnement abonnementSelectionne = bdgCommandes.Current as Abonnement;
+            string idAbonnement = abonnementSelectionne.id;
+            DateTime dateCommande = abonnementSelectionne.dateCommande;
+            DateTime dateFinAbonnement = abonnementSelectionne.dateFinAbonnement;
+
+            lesExemplaireRevue = controller.GetExemplairesRevue(idAbonnement);
+            bool suppressionPossible = true;
+            foreach (Exemplaire ex in lesExemplaireRevue)
+            {
+                if (parutionDansAbonnement(ex.DateAchat, dateCommande, dateFinAbonnement))
+                {
+                    suppressionPossible = false;
+                    break;
+                }
+            }
+            if (suppressionPossible)
+            {
+                if (MessageBox.Show("Voulez-vous vraiment supprimer cet abonnement ?",
+                    "Confirmation",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    if (controller.SupprimerAbonnementRevue(idAbonnement))
+                    {
+                        MessageBox.Show("Suppression réussie");
+                        AfficheAbonnementRevue();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur de suppression");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Impossible de supprimer : des exemplaires existent dans cet abonnement");
+            }
+        }
+    
     }
 }
