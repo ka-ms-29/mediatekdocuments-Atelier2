@@ -6,12 +6,13 @@ using System.Windows.Forms;
 
 namespace MediaTekDocuments.view
 {
+    /// <summary>
+    /// class d'affichage la form d'authentification.
+    /// </summary>
     public partial class FrmAuthentification : Form
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private readonly FrmAuthentificationController controller;
+
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
         /// </summary>
@@ -21,7 +22,9 @@ namespace MediaTekDocuments.view
             this.controller = new FrmAuthentificationController();
         }
         /// <summary>
-        /// Boutton de Se connecter : pour verifier l'utilisateur connctée et affichage de fentre MediaTek.
+        /// Boutton de "Se connecter" : operation pour récupérer l'utilisateur correspondant au nom et mot de passe saisis,
+        /// et affichage de la form FrmMediték adapté au service de l'utilisateur.
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

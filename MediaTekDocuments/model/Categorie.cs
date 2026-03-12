@@ -8,7 +8,11 @@ namespace MediaTekDocuments.model
     {
         public string Id { get; }
         public string Libelle { get; }
-
+        /// <summary>
+        /// constructeur de la classe, valorisant les propriétés de la classe Categorie
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="libelle"></param>
         public Categorie(string id, string libelle)
         {
             this.Id = id;

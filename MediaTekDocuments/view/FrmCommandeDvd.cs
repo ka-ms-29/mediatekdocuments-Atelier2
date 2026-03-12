@@ -30,7 +30,7 @@ namespace MediaTekDocuments.view
             this.controller = new FrmCommandeDocumentController();
         }
         /// <summary>
-        /// 
+        /// les initialisaton lors du chargement du formulaire.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -325,7 +325,7 @@ namespace MediaTekDocuments.view
             }
         }
         /// <summary>
-        /// faire tri sur les colonne de la liste.
+        /// tri sur les colonne de la liste.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

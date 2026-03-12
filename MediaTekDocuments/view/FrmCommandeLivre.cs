@@ -28,7 +28,7 @@ namespace MediaTekDocuments.view
             this.controller = new FrmCommandeDocumentController();
         }
         /// <summary>
-        /// 
+        /// les initialisaton lors du chargement du formulaire.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -254,7 +254,6 @@ namespace MediaTekDocuments.view
             {
                 modifier = true;
                 EnCoursModifCommandeLivre(modifier);
-                //CommandeDocument commandeDocument = (CommandeDocument)dgvListeCommande.CurrentRow.DataBoundItem;
                 CommandeDocument commandeselectionne = (CommandeDocument)bdgCommandes.List[bdgCommandes.Position];
                 cboSuivi.SelectedIndex = cboSuivi.FindStringExact(commandeselectionne.EtapeSuivi);
 
@@ -386,8 +385,7 @@ namespace MediaTekDocuments.view
         private void EnregistreModifierCommande()
         {
             EnCoursModifCommandeLivre(true);
-            //DataGridViewRow row = dgvListeCommande.SelectedRows[0];
-            //CommandeDocument commandeselectionne = row.DataBoundItem as CommandeDocument;
+            
             CommandeDocument commandeselectionne = (CommandeDocument)bdgCommandes.List[bdgCommandes.Position];
 
             string idCommande = commandeselectionne.id;

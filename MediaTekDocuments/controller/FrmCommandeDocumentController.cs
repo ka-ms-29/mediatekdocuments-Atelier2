@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace MediaTekDocuments.controller
 {
+
     /// <summary>
     /// Controller lié au Form de Commande un documment (livre/Dvd)
     /// FrmCommandeLivre
@@ -24,7 +25,7 @@ namespace MediaTekDocuments.controller
             access = Access.GetInstance();
         }
         /// <summary>
-        /// 
+        /// Récupère la liste des suivis de comande à partir Access.
         /// </summary>
         /// <returns></returns>
         public List<Suivi> GetAllSuivi()
@@ -32,7 +33,7 @@ namespace MediaTekDocuments.controller
             return access.GetAllSuivi();
         }
         /// <summary>
-        /// 
+        /// Récupère la liste des livres de comande à partir Access.
         /// </summary>
         /// <returns></returns>
         public List<Livre> GetAllLivres()
@@ -40,7 +41,7 @@ namespace MediaTekDocuments.controller
             return access.GetAllLivres();
         }
         /// <summary>
-        /// 
+        /// Récupère la liste des Dvds de comande à partir Access.
         /// </summary>
         /// <returns></returns>
         public List<Dvd> GetAllDvd()
@@ -48,16 +49,16 @@ namespace MediaTekDocuments.controller
             return access.GetAllDvd();
         }
         /// <summary>
-        /// 
+        /// Récupère la liste des commandes d'un document à partir Access.
         /// </summary>
-        /// <param name="idLivre"></param>
+        /// <param name="idDocument"></param>
         /// <returns></returns>
         public List<CommandeDocument> GetCommandeDocument(string idDocument)
         {
             return access.GetCommandesDocument(idDocument);
         }
         /// <summary>
-        /// 
+        /// Envoi la demmande d'ajout nouvelle commande pour un document.
         /// </summary>
         /// <param name="commandeDocument"></param>
         /// <returns></returns>
@@ -66,7 +67,7 @@ namespace MediaTekDocuments.controller
             return access.AjoutCommandeDocument(commandeDocument);
         }
         /// <summary>
-        /// 
+        /// Envoi la demmande de modification de l'étape de suivi d'un commande existant.
         /// </summary>
         /// <param name="idCommande"></param>
         /// <param name="idSuivi"></param>

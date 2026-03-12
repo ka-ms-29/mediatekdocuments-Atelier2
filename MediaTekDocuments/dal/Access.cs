@@ -249,7 +249,7 @@ namespace MediaTekDocuments.dal
             return false;
         }
         /// <summary>
-        /// 
+        /// Ajout un abonnement revue dans la BDD
         /// </summary>
         /// <param name="abonnement"></param>
         /// <returns></returns>
@@ -352,7 +352,7 @@ namespace MediaTekDocuments.dal
             data.Add("pwd", pwd);
             string json = JsonConvert.SerializeObject(data);
 
-            List<Utilisateurs> lesutilisateurs = TraitementRecup<Utilisateurs>(GET, "utilisateurs/" + json, null);
+            List<Utilisateurs> lesutilisateurs = TraitementRecup<Utilisateurs>(GET, "utilisateur/" + json, null);
             return lesutilisateurs;
         }
         /// <summary>

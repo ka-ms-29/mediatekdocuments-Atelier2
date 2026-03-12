@@ -4,8 +4,15 @@ using System.Collections.Generic;
 
 namespace MediaTekDocuments.controller
 {
+
+    
+
+    /// <summary>
+    /// Controller lié au Form de Authentification
+    /// </summary>
     public class FrmAuthentificationController
     {
+
         /// <summary>
         /// Objet d'accès aux données
         /// </summary>

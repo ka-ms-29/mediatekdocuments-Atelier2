@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace MediaTekDocuments.view
 {
     /// <summary>
-    /// classe d'affichage la form la gestion des abonnement
+    /// classe d'affichage la form : gestion des abonnements de revue
     /// </summary>
     public partial class FrmCommandeRevue : Form
     {
@@ -31,7 +31,7 @@ namespace MediaTekDocuments.view
             this.controller = new FrmCommandeRevueController();
         }
         /// <summary>
-        /// événement load
+        /// les initialisaton lors du chargement du formulaire.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

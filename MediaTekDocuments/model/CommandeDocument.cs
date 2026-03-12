@@ -13,7 +13,16 @@ namespace MediaTekDocuments.model
         public string idsuivi { get; set; }
         public string EtapeSuivi { get; set; }
 
-
+        /// <summary>
+        /// constructeur de la classe, valorisant les propriété de la classe.
+        /// </summary>
+        /// <param name="nbExemplaire"></param>
+        /// <param name="idLivreDvd"></param>
+        /// <param name="IdSuivi"></param>
+        /// <param name="EtapeSuivi"></param>
+        /// <param name="id"></param>
+        /// <param name="dateCommande"></param>
+        /// <param name="montant"></param>
         public CommandeDocument(int nbExemplaire, string idLivreDvd, string IdSuivi, string EtapeSuivi,
                             string id, DateTime dateCommande, double montant)
         : base(id, dateCommande, montant) // constructeur de la classe parent
