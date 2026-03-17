@@ -4,12 +4,7 @@ using System.Collections.Generic;
 
 namespace MediaTekDocuments.controller
 {
-    /// <summary>
-    /// controller
-    /// </summary>
-    internal class NamespaceDoc
-    {
-    }
+  
     /// <summary>
     /// Contrôleur lié à FrmCommandeRevue
     /// </summary>

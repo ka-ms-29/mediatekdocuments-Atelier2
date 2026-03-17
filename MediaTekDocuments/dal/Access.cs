@@ -20,7 +20,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = "http://mediadocat2.atwebpages.com/";
         /// <summary>
         /// instance unique de la classe
         /// </summary>
@@ -391,9 +391,9 @@ namespace MediaTekDocuments.dal
             catch (Exception e)
             {
                 Log.Fatal("Impossible d'accéder à la base de données via l'API. (problème d'accès à l'api)", e);
-                Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
-                Environment.Exit(0);
-                //MessageBox.Show(e.ToString());
+                //Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
+                //Environment.Exit(0);
+                MessageBox.Show(e.ToString());
 
             }
             return liste;

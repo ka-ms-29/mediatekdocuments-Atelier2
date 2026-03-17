@@ -43,7 +43,7 @@ namespace MediaTekDocuments.view
 
                 if (lesUtilisateurs.Count == 0)
                 {
-                    MessageBox.Show("Nom ou mot de passe incorrect");
+                    MessageBox.Show("Authentification incorrect");
                     videLesChmpsSaisie();
                 }
                 else if (lesUtilisateurs.Count > 1)
@@ -62,7 +62,7 @@ namespace MediaTekDocuments.view
                         case "3":
                             FrmMediatek frmMediatek = new FrmMediatek(utilisateur);
                             frmMediatek.Show();
-                            this.Hide();
+                            //this.Hide();
                             break;
 
                         case "4":
