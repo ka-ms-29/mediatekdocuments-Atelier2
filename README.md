@@ -10,7 +10,7 @@ L’application dispose d’une fenêtre principale organisée en plusieurs ongl
 Chaque onglet correspond à une fonctionnalité spécifique et contient un bouton permettant d’accéder à la fenêtre de commande de documents associée.
 ## Fenêtre Authentification
 Au lancement de l’application, une fenêtre d’authentification s’ouvre.<br> 
-<img width="425" height="281" alt="image" src="https://github.com/user-attachments/assets/0b31446b-8bdc-4ad5-9183-26e78ab1c61f" />
+<img width="425" height="281" alt="image" src="https://github.com/user-attachments/assets/0b31446b-8bdc-4ad5-9183-26e78ab1c61f" /><br>
 L’accès aux fonctionnalités de l’application dépend du rôle ou du service de chaque utilisateur :<br>
 •	Utilisateur Culture : n’a pas accès à l’application. Un message d’information s’affiche et l’application se ferme.<br>
 •	Utilisateur Admin : a accès à toutes les fonctionnalités de l’application.<br>
@@ -44,19 +44,19 @@ Dans cette fenêtre, l’utilisateur saisit le numéro du document et clique sur
    •	Première partie : les informations détaillées du document s’affichent.<br>
    •	Deuxième partie : la liste des commandes pour ce document s’affiche, comprenant les informations suivantes : date de commande, montant, nombre d’exemplaires        et étape de suivi.<br>
    •	Troisième partie : devient active, permettant à l’utilisateur d’ajouter une nouvelle commande pour le document recherché.<br>
-#### Gestion des commandes
-1.	Ajouter une commande : <br>
+   <strang> Gestion des commandes </strang><br>
+<strang>1.	Ajouter une commande :</strang> <br>
    •	Tous les champs doivent être remplis, sauf la liste du statut de suivi, qui est inactive car toutes les nouvelles commandes ont automatiquement le statut «         en cours ».<br>
    •	Après avoir rempli les champs, cliquez sur « Enregistrer ».<br>
    •	Lorsqu’une commande est ajoutée, les exemplaires correspondants au nombre indiqué sont automatiquement ajoutés à la table des exemplaires.<br>
    •	Le bouton « Annuler » permet de vider les champs saisis.<br>
-2.	Modifier le statut d’une commande :
+<strang>2.	Modifier le statut d’une commande :</strang>
    •	Sélectionnez la commande dans la liste puis cliquez sur « Modifier ».<br>
    •	La troisième partie passe en mode modification : tous les champs restent inactifs, sauf la liste étape de suivi, qui devient active et prend la valeur              actuelle de la commande sélectionnée.<br>
    •	Règles importantes :<br>
           o	Une commande avec l’étape « livré » ou « réglé » ne peut pas revenir aux étapes précédentes « relancé » ou « en cours ».<br>
           o	Une commande ne peut pas être réglée si elle n’a pas encore été livrée.<br>
-3.	Supprimer une commande :<br>
+<strang>3.	Supprimer une commande :</strang><br>
     •	Sélectionnez la commande dans la liste puis cliquez sur « Supprimer ».<br>
     •	Les commandes dont l’étape est « livrée » ne peuvent pas être supprimées.<br>
 
