@@ -45,20 +45,20 @@ Dans cette fenêtre, l’utilisateur saisit le numéro du document et clique sur
 •	Deuxième partie : la liste des commandes pour ce document s’affiche, comprenant les informations suivantes : date de commande, montant, nombre d’exemplaires et étape de suivi.
 •	Troisième partie : devient active, permettant à l’utilisateur d’ajouter une nouvelle commande pour le document recherché.
 #### Gestion des commandes
-##### 1.	Ajouter une commande :
-•	Tous les champs doivent être remplis, sauf la liste du statut de suivi, qui est inactive car toutes les nouvelles commandes ont automatiquement le statut « en cours ».
-•	Après avoir rempli les champs, cliquez sur « Enregistrer ».
-•	Lorsqu’une commande est ajoutée, les exemplaires correspondants au nombre indiqué sont automatiquement ajoutés à la table des exemplaires.
-•	Le bouton « Annuler » permet de vider les champs saisis.
-##### 2.	Modifier le statut d’une commande :
-•	Sélectionnez la commande dans la liste puis cliquez sur « Modifier ».
-•	La troisième partie passe en mode modification : tous les champs restent inactifs, sauf la liste étape de suivi, qui devient active et prend la valeur actuelle de la commande sélectionnée.
-•	Règles importantes :
-o	Une commande avec l’étape « livré » ou « réglé » ne peut pas revenir aux étapes précédentes « relancé » ou « en cours ».
-o	Une commande ne peut pas être réglée si elle n’a pas encore été livrée.
-##### 3.	Supprimer une commande :
-•	Sélectionnez la commande dans la liste puis cliquez sur « Supprimer ».
-•	Les commandes dont l’étape est « livrée » ne peuvent pas être supprimées.
+1.	Ajouter une commande : <br>
+•	Tous les champs doivent être remplis, sauf la liste du statut de suivi, qui est inactive car toutes les nouvelles commandes ont automatiquement le statut « en cours ».<br>
+•	Après avoir rempli les champs, cliquez sur « Enregistrer ».<br>
+•	Lorsqu’une commande est ajoutée, les exemplaires correspondants au nombre indiqué sont automatiquement ajoutés à la table des exemplaires.<br>
+•	Le bouton « Annuler » permet de vider les champs saisis.<br>
+2.	Modifier le statut d’une commande :
+•	Sélectionnez la commande dans la liste puis cliquez sur « Modifier ».<br>
+•	La troisième partie passe en mode modification : tous les champs restent inactifs, sauf la liste étape de suivi, qui devient active et prend la valeur actuelle de la commande sélectionnée.<br>
+•	Règles importantes :<br>
+o	Une commande avec l’étape « livré » ou « réglé » ne peut pas revenir aux étapes précédentes « relancé » ou « en cours ».<br>
+o	Une commande ne peut pas être réglée si elle n’a pas encore été livrée.<br>
+3.	Supprimer une commande :<br>
+•	Sélectionnez la commande dans la liste puis cliquez sur « Supprimer ».<br>
+•	Les commandes dont l’étape est « livrée » ne peuvent pas être supprimées.<br>
 
 
 ### Onglet 2 : DVD
