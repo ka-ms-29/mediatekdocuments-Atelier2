@@ -40,25 +40,25 @@ Le bouton « Commande livre » est visible uniquement pour les utilisateurs COMM
 Il permet d’ouvrir la fenêtre de gestion des commandes de livres.
 ### Fenêtre Gestion commande livre :
 <img width="945" height="738" alt="image" src="https://github.com/user-attachments/assets/1df9040f-89d7-4d65-8be8-ea9853ea9c67" />
-Dans cette fenêtre, l’utilisateur saisit le numéro du document et clique sur le bouton « Rechercher » Ensuite :
-•	Première partie : les informations détaillées du document s’affichent.
-•	Deuxième partie : la liste des commandes pour ce document s’affiche, comprenant les informations suivantes : date de commande, montant, nombre d’exemplaires et étape de suivi.
-•	Troisième partie : devient active, permettant à l’utilisateur d’ajouter une nouvelle commande pour le document recherché.
+Dans cette fenêtre, l’utilisateur saisit le numéro du document et clique sur le bouton « Rechercher » Ensuite :<br>
+   •	Première partie : les informations détaillées du document s’affichent.<br>
+   •	Deuxième partie : la liste des commandes pour ce document s’affiche, comprenant les informations suivantes : date de commande, montant, nombre d’exemplaires        et étape de suivi.<br>
+   •	Troisième partie : devient active, permettant à l’utilisateur d’ajouter une nouvelle commande pour le document recherché.<br>
 #### Gestion des commandes
 1.	Ajouter une commande : <br>
-•	Tous les champs doivent être remplis, sauf la liste du statut de suivi, qui est inactive car toutes les nouvelles commandes ont automatiquement le statut « en cours ».<br>
-•	Après avoir rempli les champs, cliquez sur « Enregistrer ».<br>
-•	Lorsqu’une commande est ajoutée, les exemplaires correspondants au nombre indiqué sont automatiquement ajoutés à la table des exemplaires.<br>
-•	Le bouton « Annuler » permet de vider les champs saisis.<br>
+   •	Tous les champs doivent être remplis, sauf la liste du statut de suivi, qui est inactive car toutes les nouvelles commandes ont automatiquement le statut «         en cours ».<br>
+   •	Après avoir rempli les champs, cliquez sur « Enregistrer ».<br>
+   •	Lorsqu’une commande est ajoutée, les exemplaires correspondants au nombre indiqué sont automatiquement ajoutés à la table des exemplaires.<br>
+   •	Le bouton « Annuler » permet de vider les champs saisis.<br>
 2.	Modifier le statut d’une commande :
-•	Sélectionnez la commande dans la liste puis cliquez sur « Modifier ».<br>
-•	La troisième partie passe en mode modification : tous les champs restent inactifs, sauf la liste étape de suivi, qui devient active et prend la valeur actuelle de la commande sélectionnée.<br>
-•	Règles importantes :<br>
-o	Une commande avec l’étape « livré » ou « réglé » ne peut pas revenir aux étapes précédentes « relancé » ou « en cours ».<br>
-o	Une commande ne peut pas être réglée si elle n’a pas encore été livrée.<br>
+   •	Sélectionnez la commande dans la liste puis cliquez sur « Modifier ».<br>
+   •	La troisième partie passe en mode modification : tous les champs restent inactifs, sauf la liste étape de suivi, qui devient active et prend la valeur              actuelle de la commande sélectionnée.<br>
+   •	Règles importantes :<br>
+          o	Une commande avec l’étape « livré » ou « réglé » ne peut pas revenir aux étapes précédentes « relancé » ou « en cours ».<br>
+          o	Une commande ne peut pas être réglée si elle n’a pas encore été livrée.<br>
 3.	Supprimer une commande :<br>
-•	Sélectionnez la commande dans la liste puis cliquez sur « Supprimer ».<br>
-•	Les commandes dont l’étape est « livrée » ne peuvent pas être supprimées.<br>
+    •	Sélectionnez la commande dans la liste puis cliquez sur « Supprimer ».<br>
+    •	Les commandes dont l’étape est « livrée » ne peuvent pas être supprimées.<br>
 
 
 ### Onglet 2 : DVD
