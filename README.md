@@ -1,15 +1,27 @@
 # MediatekDocuments
-Cette application permet de gérer les documents (livres, DVD, revues) d'une médiathèque. Elle a été codée en C# sous Visual Studio 2019. C'est une application de bureau, prévue d'être installée sur plusieurs postes accédant à la même base de données.<br>
-L'application exploite une API REST pour accéder à la BDD MySQL. Des explications sont données plus loin, ainsi que le lien de récupération.
+Cette application permet de gérer les documents (livres, DVD, revues) d'une médiathèque ainsi que leurs commandes. Elle a été codée en C# sous Visual Studio 2022. C'est une application de bureau, prévue d'être installée sur plusieurs postes accédant à la même base de données.<br>
+L'application exploite une API REST pour accéder à la BDD MySQL. Des explications sont données plus loin, ainsi que le lien de récupération.<br>
+Le lien vers ReadMe du dépôt principal : https://github.com/CNED-SLAM/MediaTekDocuments
 ## Présentation
-Actuellement l'application est partiellement codée. Voici les fonctionnalités actuellement opérationnelles : recherches et affichage d'informations sur les documents de la médiathèque (livres, DVD, revues), réception de nouveaux numéros de revues.<br>
-![img1](https://github.com/CNED-SLAM/MediaTekDocuments/assets/100127886/9b5a4c1b-6914-4455-94bf-fec24adba3ec)
-<br>L'application ne comporte qu'une seule fenêtre divisée en plusieurs onglets.
+Cette application permet aux utilisateurs d’accéder à différentes fonctionnalités en fonction du service auquel ils appartiennent. Voici les fonctionnalités : recherches et affichage d'informations sur les documents de la médiathèque (livres, DVD, revues), réception de nouveaux numéros de revues.
+Et gestion de commande livre/Dvd ainsi que la gestion d’abonnement revue.<br>
+<img width="913" height="700" alt="image" src="https://github.com/user-attachments/assets/3cd8f812-5b82-4314-a1df-07702e263403" /><br>
+L’application dispose d’une fenêtre principale organisée en plusieurs onglets.
+Chaque onglet correspond à une fonctionnalité spécifique et contient un bouton permettant d’accéder à la fenêtre de commande de documents associée.
+## Fenêtre Authentification
+Au lancement de l’application, une fenêtre d’authentification s’ouvre.<br> 
+<img width="425" height="281" alt="image" src="https://github.com/user-attachments/assets/0b31446b-8bdc-4ad5-9183-26e78ab1c61f" />
+L’accès aux fonctionnalités de l’application dépend du rôle ou du service de chaque utilisateur :<br>
+•	Utilisateur Culture : n’a pas accès à l’application. Un message d’information s’affiche et l’application se ferme.<br>
+•	Utilisateur Admin : a accès à toutes les fonctionnalités de l’application.<br>
+•	Utilisateur Commande : a accès à la gestion des commandes. L’application affiche également un message indiquant les abonnements aux revues qui expirent dans moins de 30 jours.<br>
+•	Utilisateur Gestion : n’a pas accès à la gestion des commandes.
+
 ## Les différents onglets
 ### Onglet 1 : Livres
 Cet onglet présente la liste des livres, triée par défaut sur le titre.<br>
 La liste comporte les informations suivantes : titre, auteur, collection, genre, public, rayon.
-![img2](https://github.com/CNED-SLAM/MediaTekDocuments/assets/100127886/e3f31979-cf24-416d-afb1-a588356e8966)
+<img width="945" height="739" alt="image" src="https://github.com/user-attachments/assets/60673e89-36ab-4eaa-ad43-b07848d9e04c" />
 #### Recherches
 <strong>Par le titre :</strong> Il est possible de rechercher un ou plusieurs livres par le titre. La saisie dans la zone de recherche se fait en autocomplétions sans tenir compte de la casse. Seuls les livres concernés apparaissent dans la liste.<br>
 <strong>Par le numéro :</strong> il est possible de saisir un numéro et, en cliquant sur "Rechercher", seul le livre concerné apparait dans la liste (ou un message d'erreur si le livre n'est pas trouvé, avec la liste remplie à nouveau).
@@ -23,16 +35,52 @@ Le fait de cliquer sur le titre d'une des colonnes de la liste des livres, perme
 #### Affichage des informations détaillées
 Si la liste des livres contient des éléments, par défaut il y en a toujours un de sélectionné. Il est aussi possible de sélectionner une ligne (donc un livre) en cliquant n'importe où sur la ligne.<br>
 La partie basse de la fenêtre affiche les informations détaillées du livre sélectionné (numéro de document, code ISBN, titre, auteur(e), collection, genre, public, rayon, chemin de l'image) ainsi que l'image.
+#### Bouton "Commande Livre" 
+Le bouton « Commande livre » est visible uniquement pour les utilisateurs COMMANDE et ADMIN.
+Il permet d’ouvrir la fenêtre de gestion des commandes de livres.
+### Fenêtre Gestion commande livre :
+<img width="945" height="738" alt="image" src="https://github.com/user-attachments/assets/1df9040f-89d7-4d65-8be8-ea9853ea9c67" />
+Dans cette fenêtre, l’utilisateur saisit le numéro du document et clique sur le bouton « Rechercher » Ensuite :
+•	Première partie : les informations détaillées du document s’affichent.
+•	Deuxième partie : la liste des commandes pour ce document s’affiche, comprenant les informations suivantes : date de commande, montant, nombre d’exemplaires et étape de suivi.
+•	Troisième partie : devient active, permettant à l’utilisateur d’ajouter une nouvelle commande pour le document recherché.
+#### Gestion des commandes
+##### 1.	Ajouter une commande :
+•	Tous les champs doivent être remplis, sauf la liste du statut de suivi, qui est inactive car toutes les nouvelles commandes ont automatiquement le statut « en cours ».
+•	Après avoir rempli les champs, cliquez sur « Enregistrer ».
+•	Lorsqu’une commande est ajoutée, les exemplaires correspondants au nombre indiqué sont automatiquement ajoutés à la table des exemplaires.
+•	Le bouton « Annuler » permet de vider les champs saisis.
+##### 2.	Modifier le statut d’une commande :
+•	Sélectionnez la commande dans la liste puis cliquez sur « Modifier ».
+•	La troisième partie passe en mode modification : tous les champs restent inactifs, sauf la liste étape de suivi, qui devient active et prend la valeur actuelle de la commande sélectionnée.
+•	Règles importantes :
+o	Une commande avec l’étape « livré » ou « réglé » ne peut pas revenir aux étapes précédentes « relancé » ou « en cours ».
+o	Une commande ne peut pas être réglée si elle n’a pas encore été livrée.
+##### 3.	Supprimer une commande :
+•	Sélectionnez la commande dans la liste puis cliquez sur « Supprimer ».
+•	Les commandes dont l’étape est « livrée » ne peuvent pas être supprimées.
+
+
 ### Onglet 2 : DVD
 Cet onglet présente la liste des DVD, triée par titre.<br>
 La liste comporte les informations suivantes : titre, durée, réalisateur, genre, public, rayon.<br>
 Le fonctionnement est identique à l'onglet des livres.<br>
 La seule différence réside dans certaines informations détaillées, spécifiques aux DVD : durée (à la place de ISBN), réalisateur (à la place de l'auteur), synopsis (à la place de collection).
+Le bouton « Commande DVD » permet d’accéder à la fenêtre « Gestion des commandes DVD ».
+Ce bouton est visible que pour les utilisateurs admin et commande.
+Le fonctionnement de cette fenêtre est identique à celui de la fenêtre de gestion des commandes de livres
+
 ### Onglet 3 : Revues
 Cet onglet présente la liste des revues, triées par titre.<br>
 La liste comporte les informations suivantes : titre, périodicité, délai mise à dispo, genre, public, rayon.<br>
 Le fonctionnement est identique à l'onglet des livres.<br>
 La seule différence réside dans certaines informations détaillées, spécifiques aux revues : périodicité (à la place de l'auteur), délai mise à dispo (à la place de collection).
+Le bouton « Commande revue et abonnement » permet d’accéder à la fenêtre Gestion des abonnements de revues.
+Cette fenêtre présente quelques différences par rapport aux autres :
+•	Il n’est pas possible de modifier un abonnement existant.
+•	Le principe pour ajouter un nouvel abonnement ou pour le renouveler est le même.
+•	La suppression d’un abonnement dont la date est [à préciser] n’est pas possible.
+
 ### Onglet 4 : Parutions des revues
 Cet onglet permet d'enregistrer la réception de nouvelles parutions d'une revue.<br>
 Il se décompose en 2 parties (groupbox).
@@ -49,7 +97,8 @@ Si le numéro de la parution existe déjà, il n’est pas ajouté et un message
 ## La base de données
 La base de données 'mediatek86 ' est au format MySQL.<br>
 Voici sa structure :<br>
-![img4](https://github.com/CNED-SLAM/MediaTekDocuments/assets/100127886/4314f083-ec8b-4d27-9746-fecd1387d77b)
+<img width="888" height="1327" alt="image" src="https://github.com/user-attachments/assets/fe43fe50-467e-4cf1-9bfe-bc72fbbf0996" />
+
 <br>On distingue les documents "génériques" (ce sont les entités Document, Revue, Livres-DVD, Livre et DVD) des documents "physiques" qui sont les exemplaires de livres ou de DVD, ou bien les numéros d’une revue ou d’un journal.<br>
 Chaque exemplaire est numéroté à l’intérieur du document correspondant, et a donc un identifiant relatif. Cet identifiant est réel : ce n'est pas un numéro automatique. <br>
 Un exemplaire est caractérisé par :<br>
@@ -65,13 +114,16 @@ Enfin, 3 tables permettent de mémoriser les données concernant les commandes d
 <br>
 La base de données est remplie de quelques exemples pour pouvoir tester son application. Dans les champs image (de Document) et photo (de Exemplaire) doit normalement se trouver le chemin complet vers l'image correspondante. Pour les tests, vous devrez créer un dossier, le remplir de quelques images et mettre directement les chemins dans certains tuples de la base de données qui, pour le moment, ne contient aucune image.<br>
 Lorsque l'application sera opérationnelle, c'est le personnel de la médiathèque qui sera en charge de saisir les informations des documents.
+Une commande de livre/DVD est suivi à travers 4 étapes : en cours, relancé, livré, réglé.
+Deux tables, isolées du reste de la base de données, sont responsables de stocker les informations sur chaque utilisateur et leur service. 
+
 ## L'API REST
 L'accès à la BDD se fait à travers une API REST protégée par une authentification basique.<br>
 Le code de l'API se trouve ici :<br>
-https://github.com/CNED-SLAM/rest_mediatekdocuments<br>
+( https://github.com/ka-ms-29/rest_mediatekdocuments<br>
 avec toutes les explications pour l'utiliser (dans le readme).
 ## Installation de l'application
 Ce mode opératoire permet d'installer l'application pour pouvoir travailler dessus.<br>
-- Installer Visual Studio 2019 entreprise et les extension Specflow et newtonsoft.json (pour ce dernier, voir l'article "Accéder à une API REST à partir d'une application C#" dans le wiki de ce dépôt : consulter juste le début pour la configuration, car la suite permet de comprendre le code existant).<br>
+- Installer Visual Studio 2022 entreprise et newtonsoft.json (pour ce dernier, voir l'article "Accéder à une API REST à partir d'une application C#" dans le wiki de ce dépôt : consulter juste le début pour la configuration, car la suite permet de comprendre le code existant).<br>
 - Télécharger le code et le dézipper puis renommer le dossier en "mediatekdocuments".<br>
-- Récupérer et installer l'API REST nécessaire (https://github.com/CNED-SLAM/rest_mediatekdocuments) ainsi que la base de données (les explications sont données dans le readme correspondant).
+- Récupérer et installer l'API REST nécessaire (( https://github.com/ka-ms-29/rest_mediatekdocuments) ainsi que la base de données (les explications sont données dans le readme correspondant).
